@@ -71,7 +71,9 @@ will outline the necessary steps to prepare your system for the build.
 Before continuing, note that this template uses CMake's FetchContent and vcpkg to
 manage dependencies. For large repositories such as Boost, the setup process may
 take some time, but you'll get library versions that are often many releases
-ahead of what system package managers provide.
+ahead of what system package managers provide. If the vcpkg build cache becomes
+too large, you can free up space by removing the `buildtrees` and `downloads`
+directories in your vcpkg installation.
 
 Generating test coverage reports requires debug symbols, so coverage targets
 won't build for Release configurations.
@@ -174,12 +176,11 @@ cd vcpkg && ./bootstrap-vcpkg.sh
 At this point, you may proceed with a trial-and-error approach. This template
 includes a `CMakePresets.json` file with predefined workflows. To get started,
 run the following command and review the output. If any packages are missing,
-install them, clean the build directory, and try again.
+install them and try again.
 
 ```bash
 cmake --workflow --list-presets
-cmake --workflow --preset linux-default-release
-cmake --build --preset linux-default-release --target clean
+cmake --workflow --fresh --preset linux-default-release
 ```
 
 Alternatively, you can run the following commands to install the remaining
@@ -193,10 +194,35 @@ sudo apt-get -y install cppcheck
 sudo apt-get -y install lcov
 ```
 
-For Qt installation, download the [online installer](https://www.qt.io/download-open-source)
-and follow the setup instructions. Qt packages are also available through most
-Linux distribution repositories. If you installed Qt using the online installer,
-update the `QTDIR` path in the `CMakePresets.json` file accordingly.
+Optionally, to install Qt, download the [online installer](https://www.qt.io/download-open-source)
+and follow the setup instructions. After installation, update the `QTDIR` path in
+the `CMakePresets.json` file accordingly. If your environment supports GUI
+applications, you can complete the installation using the standard graphical
+setup. Otherwise, you can run the online installer through its command-line
+interface. To install all required components, run the following commands:
+
+```bash
+# Install Qt for X11 requirements. For more details, see the following links:
+# https://doc.qt.io/qt-6/linux-requirements.html
+# https://doc.qt.io/Qt-6/get-and-install-qt-cli.html
+
+sudo apt install \
+   libfontconfig1-dev libfreetype-dev libgtk-3-dev libx11-dev libx11-xcb-dev \
+   libxcb-cursor-dev libxcb-glx0-dev libxcb-icccm4-dev libxcb-image0-dev \
+   libxcb-keysyms1-dev libxcb-randr0-dev libxcb-render-util0-dev \
+   libxcb-shape0-dev libxcb-shm0-dev libxcb-sync-dev libxcb-util-dev \
+   libxcb-xfixes0-dev libxcb-xkb-dev libxcb1-dev libxext-dev libxfixes-dev \
+   libxi-dev libxkbcommon-dev libxkbcommon-x11-dev libxrender-dev
+
+# Download and install Qt base components:
+wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-online-installer-linux-arm64-4.10.0.run
+chmod +x ./qt-online-installer-linux-arm64-4.10.0.run
+./qt-online-installer-linux-arm64-4.10.0.run install
+
+# After the base installation, install additional components using the MaintenanceTool:
+cd ~/Qt/
+./MaintenanceTool install qt.qt6.6100.addons
+```
 
 The following tools are used in this project:
 
@@ -275,25 +301,24 @@ to the Path.
 3. **[Visual Studio 2022](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022)**:
 Select the "Desktop development with C++" option.
 
-4. **[Qt](https://www.qt.io/download-open-source)**: Standard setup. During
-installation, under Additional Libraries for your chosen Qt version, select the
-libraries you need. You'll likely not require any debug information files. In the
-Build Tools section, uncheck CMake. If you already have Qt installed, run the
-Maintenance Tool in your installation directory to add or install another version.
+4. **[Qt](https://www.qt.io/download-open-source)**: [Optional] Follow standard
+setup. During installation, under Additional Libraries for your chosen Qt version,
+select the libraries you need. You'll likely not require any debug information
+files. In the Build Tools section, uncheck CMake. If you already have Qt
+installed, run the Maintenance Tool in your installation directory to add or
+install another version.
 
 5. **[vcpkg](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-powershell#1---se)**:
-Standard vcpkg setup. The `CMakePresets.json` assumes it is installed directly
-under the C directory.
+Follow step 1 of standard vcpkg setup. The `CMakePresets.json` assumes it is
+installed directly under the C directory (`C:\vcpkg`).
 
 This template includes a `CMakePresets.json` file with predefined workflows. To
 start, run the following command and review the output. If any packages are
-missing, you can install them, clean the build, and repeat the
-process:
+missing, you can install them and repeat the process:
 
 ```bash
 cmake --workflow --list-presets
-cmake --workflow --preset windows-default-release
-cmake --build --preset windows-default-release --target clean
+cmake --workflow --fresh --preset windows-default-release
 ```
 
 Alternatively, you can follow the rest to install all required packages:
@@ -338,12 +363,12 @@ follow these steps (replace the `<user>` with correct value):
 
 1. **Install Homebrew:**
 
-   Run the following command to install Homebrew, the macOS package manager:
+   Run the following command to install Homebrew, the macOS package manager.
+   After the installation completes, Homebrew will display a few commands that
+   you need to run manually to add it to your shell environment.
 
    ```zsh
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/<user>/.zprofile
-   eval "$(/opt/homebrew/bin/brew shellenv)"
    ```
 
 2. **Install required dependencies:**
@@ -351,38 +376,33 @@ follow these steps (replace the `<user>` with correct value):
    Use Homebrew to install the necessary tools:
 
    ```zsh
-   brew install git cmake
-   brew install cppcheck
-   brew install clang-format
-   brew install doxygen graphviz
+   brew install git cmake llvm
+   brew install cppcheck clang-format doxygen graphviz
+   brew install autoconf autoconf-archive automake libtool pkg-config
    ```
 
-3. **Set up LLVM for coverage reports:**
+3. **Install vcpkg:**
 
-   Since coverage reports require LLVM tools, we need to add them to the system's
-   PATH. You have two options:
+   This template depends on vcpkg. Follow its
+   [official documentation](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started)
+   to install it. The `CMakePresets.json` file assumes that vcpkg is located in
+   the user's `/Users/<username>/vcpkg` directory. This template installs its
+   dependencies using a vcpkg [manifest file](https://learn.microsoft.com/en-us/vcpkg/consume/manifest-mode).
 
-   **Option 1: Use LLVM tools without changing the default Apple Clang compiler**  
-   Add LLVM tools (`llvm-cov` and `llvm-profdata`) to the end of your PATH to
-   avoid overriding Apple's Clang compiler. Ensure that the LLVM version matches
-   the default Apple Clang version to avoid compatibility issues:
+   Installing vcpkg is straightforward and can be done with the following
+   commands:
 
    ```zsh
-   clang --version
-   brew install llvm@15
-   echo 'export PATH="$PATH:/opt/homebrew/opt/llvm@15/bin"' >> ~/.zshrc
+   cd $HOME
+   git clone https://github.com/microsoft/vcpkg.git
+   cd vcpkg && ./bootstrap-vcpkg.sh
    ```
 
-   **Option 2: Use LLVM entirely**  
-   If you'd prefer to use the latest LLVM as your default compiler, you can
-   install it and add it to the front of your PATH:
+4. **Install Qt:**
 
-   ```zsh
-   brew install llvm
-   echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
-   ```
-
-Make sure you restart the terminal for the changes in the PATH to take effect.
+   Optionally, to install Qt, download the [online installer](https://www.qt.io/download-open-source)
+   and follow the setup instructions. After installation, update the `QTDIR` path
+   in the `CMakePresets.json` file accordingly.
 
 ## Final Step
 
@@ -391,7 +411,7 @@ that matches your setup:
 
 ```bash
 cmake --workflow --list-presets
-cmake --workflow --preset linux-default-release
+cmake --workflow --fresh --preset linux-default-release
 ```
 
 This repository contains two branches. In addition to the `main` branch, there
@@ -476,7 +496,7 @@ Finally, they can compile the project easily using the `CMakePresets.json` file
 or setup their own presets:
 
 ```bash
-cmake --workflow --preset linux-default-release
+cmake --workflow --fresh --preset linux-default-release
 ```
 
 This template works well with the recommended extensions for C++ development in
