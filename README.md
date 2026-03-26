@@ -61,7 +61,7 @@ One of the examples built with this template is a terminal-based Tower of Hanoi
 game that follows the Model–View–Controller (MVC) design pattern. You can see it
 in action [here](https://github.com/MhmRhm/FTowerX). Another example, showcasing
 a collection of practical recipes for Boost.Asio and Google Protobuf, is
-available [here](https://github.com/MhmRhm/asio-recipes).
+available at [asio-recipes](https://github.com/MhmRhm/asio-recipes).
 
 ## Notes Before You Begin
 
@@ -166,7 +166,7 @@ sudo apt-get install -y bison flex
 This template depends on vcpkg. Follow its
 [official documentation](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started)
 to install it. The `CMakePresets.json` file assumes that vcpkg is located in the
-user's `\home\<username>\vcpkg` directory. This template installs its
+user's `\home\<username>\.vcpkg` directory. This template installs its
 dependencies using a vcpkg
 [manifest file](https://learn.microsoft.com/en-us/vcpkg/consume/manifest-mode).
 
@@ -174,8 +174,8 @@ Installing vcpkg is straightforward and can be done with the following commands:
 
 ```bash
 cd $HOME
-git clone https://github.com/microsoft/vcpkg.git
-cd vcpkg && ./bootstrap-vcpkg.sh
+git clone https://github.com/microsoft/vcpkg.git .vcpkg
+cd .vcpkg && ./bootstrap-vcpkg.sh
 ```
 
 At this point, you may proceed with a trial-and-error approach. This template
@@ -395,7 +395,7 @@ follow these steps (replace the `<user>` with correct value):
    This template depends on vcpkg. Follow its
    [official documentation](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started)
    to install it. The `CMakePresets.json` file assumes that vcpkg is located in
-   the user's `/Users/<username>/vcpkg` directory. This template installs its
+   the user's `/Users/<username>/.vcpkg` directory. This template installs its
    dependencies using a vcpkg [manifest file](https://learn.microsoft.com/en-us/vcpkg/consume/manifest-mode).
 
    Installing vcpkg is straightforward and can be done with the following
@@ -403,8 +403,8 @@ follow these steps (replace the `<user>` with correct value):
 
    ```zsh
    cd $HOME
-   git clone https://github.com/microsoft/vcpkg.git
-   cd vcpkg && ./bootstrap-vcpkg.sh
+   git clone https://github.com/microsoft/vcpkg.git .vcpkg
+   cd .vcpkg && ./bootstrap-vcpkg.sh
    ```
 
 4. **Install Qt:**

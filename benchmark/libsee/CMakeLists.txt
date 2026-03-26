@@ -3,7 +3,6 @@ add_executable(google_bench_libsee
 )
 
 target_link_libraries(google_bench_libsee
-	PRIVATE precompiled
 	PRIVATE libsee_static
 )
 

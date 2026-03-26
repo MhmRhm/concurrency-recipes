@@ -3,7 +3,7 @@
 	"configurePresets": [
 		{
 			"name": "linux-default-debug",
-			"displayName": "Linux Debug",
+			"displayName": "Linux Configure Debug",
 			"description": "Sets compilers, build and install directory, debug build type",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
 			"condition": {
@@ -20,7 +20,7 @@
 				"CMAKE_INSTALL_PREFIX": "${sourceDir}/../${sourceDirName}-install-${presetName}",
 				"DEFAULT_CXX_COMPILE_FLAGS": "-g;-Wextra;-Wall;-Wfloat-equal;-Wundef;-Wpointer-arith;-Wshadow;-Wcast-align;-Wswitch-default;-Wswitch-enum;-Wconversion;-Wpedantic;-Werror",
 				"DEFAULT_CXX_OPTIMIZE_FLAG": "-O0",
-				"CMAKE_TOOLCHAIN_FILE": "$penv{HOME}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+				"CMAKE_TOOLCHAIN_FILE": "$penv{HOME}/.vcpkg/scripts/buildsystems/vcpkg.cmake",
 				"QT_DEBUG_FIND_PACKAGE": "ON",
 				"QTDIR": "$penv{HOME}/Qt/6.10.0/gcc_arm64"
 			},
@@ -30,7 +30,7 @@
 		},
 		{
 			"name": "linux-default-release",
-			"displayName": "Linux Release",
+			"displayName": "Linux Configure Release",
 			"description": "Sets compilers, build and install directory, release build type",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
 			"condition": {
@@ -47,7 +47,7 @@
 				"CMAKE_INSTALL_PREFIX": "${sourceDir}/../${sourceDirName}-install-${presetName}",
 				"DEFAULT_CXX_COMPILE_FLAGS": "-Wextra;-Wall;-Wfloat-equal;-Wundef;-Wpointer-arith;-Wshadow;-Wcast-align;-Wswitch-default;-Wswitch-enum;-Wconversion;-Wpedantic;-Werror",
 				"DEFAULT_CXX_OPTIMIZE_FLAG": "-O3",
-				"CMAKE_TOOLCHAIN_FILE": "$penv{HOME}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+				"CMAKE_TOOLCHAIN_FILE": "$penv{HOME}/.vcpkg/scripts/buildsystems/vcpkg.cmake",
 				"QT_DEBUG_FIND_PACKAGE": "ON",
 				"QTDIR": "$penv{HOME}/Qt/6.10.0/gcc_arm64"
 			},
@@ -57,7 +57,7 @@
 		},
 		{
 			"name": "windows-default-debug",
-			"displayName": "Windows Debug",
+			"displayName": "Windows Configure Debug",
 			"description": "Sets compilers, build and install directory, debug build type",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
 			"condition": {
@@ -85,7 +85,7 @@
 		},
 		{
 			"name": "windows-default-release",
-			"displayName": "Windows Release",
+			"displayName": "Windows Configure Release",
 			"description": "Sets compilers, build and install directory, release build type",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
 			"condition": {
@@ -113,7 +113,7 @@
 		},
 		{
 			"name": "windows-x86-debug",
-			"displayName": "Windows x86 Debug",
+			"displayName": "Windows Configure x86 Debug",
 			"description": "Sets compilers, build and install directory, debug build type",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
 			"architecture": {
@@ -144,7 +144,7 @@
 		},
 		{
 			"name": "windows-x86-release",
-			"displayName": "Windows x86 Release",
+			"displayName": "Windows Configure x86 Release",
 			"description": "Sets compilers, build and install directory, release build type",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
 			"architecture": {
@@ -174,7 +174,7 @@
 		},
 		{
 			"name": "windows-clang-debug",
-			"displayName": "Windows Clang Debug",
+			"displayName": "Windows Configure Clang Debug",
 			"description": "Sets compilers, build and install directory, debug build type",
 			"generator": "Ninja",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
@@ -205,7 +205,7 @@
 		},
 		{
 			"name": "windows-clang-release",
-			"displayName": "Windows Clang Release",
+			"displayName": "Windows Configure Clang Release",
 			"description": "Sets compilers, build and install directory, release build type",
 			"generator": "Ninja",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
@@ -235,7 +235,7 @@
 		},
 		{
 			"name": "mac-default-debug",
-			"displayName": "Mac Debug",
+			"displayName": "Mac Configure Debug",
 			"description": "Sets compilers, build and install directory, debug build type",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
 			"condition": {
@@ -255,7 +255,7 @@
 				"DEFAULT_CXX_COMPILE_FLAGS": "-g;-Wextra;-Wall;-Wfloat-equal;-Wundef;-Wpointer-arith;-Wshadow;-Wcast-align;-Wswitch-default;-Wswitch-enum;-Wconversion;-Wpedantic;-Werror",
 				"DEFAULT_CXX_OPTIMIZE_FLAG": "-O0",
 				"CMAKE_PREFIX_PATH": "/opt/homebrew/opt/llvm",
-				"CMAKE_TOOLCHAIN_FILE": "$penv{HOME}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+				"CMAKE_TOOLCHAIN_FILE": "$penv{HOME}/.vcpkg/scripts/buildsystems/vcpkg.cmake",
 				"VCPKG_INSTALL_OPTIONS": "--debug",
 				"QT_DEBUG_FIND_PACKAGE": "ON",
 				"QTDIR": "$penv{HOME}/Qt/6.10.1/macos"
@@ -263,7 +263,7 @@
 		},
 		{
 			"name": "mac-default-release",
-			"displayName": "Mac Release",
+			"displayName": "Mac Configure Release",
 			"description": "Sets compilers, build and install directory, release build type",
 			"binaryDir": "${sourceDir}/../${sourceDirName}-build-${presetName}",
 			"condition": {
@@ -283,7 +283,7 @@
 				"DEFAULT_CXX_COMPILE_FLAGS": "-Wextra;-Wall;-Wfloat-equal;-Wundef;-Wpointer-arith;-Wshadow;-Wcast-align;-Wswitch-default;-Wswitch-enum;-Wconversion;-Wpedantic;-Werror",
 				"DEFAULT_CXX_OPTIMIZE_FLAG": "-O3",
 				"CMAKE_PREFIX_PATH": "/opt/homebrew/opt/llvm",
-				"CMAKE_TOOLCHAIN_FILE": "$penv{HOME}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+				"CMAKE_TOOLCHAIN_FILE": "$penv{HOME}/.vcpkg/scripts/buildsystems/vcpkg.cmake",
 				"VCPKG_INSTALL_OPTIONS": "--debug",
 				"QT_DEBUG_FIND_PACKAGE": "ON",
 				"QTDIR": "$penv{HOME}/Qt/6.10.1/macos"
@@ -294,7 +294,7 @@
 		{
 			"name": "linux-default-debug",
 			"jobs": 10,
-			"displayName": "Linux Debug",
+			"displayName": "Linux Build Debug",
 			"description": "debug build type",
 			"configurePreset": "linux-default-debug",
 			"configuration": "Debug"
@@ -317,7 +317,7 @@
 		{
 			"name": "linux-default-release",
 			"jobs": 10,
-			"displayName": "Linux Release",
+			"displayName": "Linux Build Release",
 			"description": "release build type",
 			"configurePreset": "linux-default-release",
 			"configuration": "Release"
@@ -330,7 +330,7 @@
 		{
 			"name": "windows-default-debug",
 			"jobs": 10,
-			"displayName": "Windows Debug",
+			"displayName": "Windows Build Debug",
 			"description": "debug build type",
 			"configurePreset": "windows-default-debug",
 			"configuration": "Debug"
@@ -343,7 +343,7 @@
 		{
 			"name": "windows-default-release",
 			"jobs": 10,
-			"displayName": "Windows Release",
+			"displayName": "Windows Build Release",
 			"description": "release build type",
 			"configurePreset": "windows-default-release",
 			"configuration": "Release"
@@ -356,7 +356,7 @@
 		{
 			"name": "windows-x86-debug",
 			"jobs": 10,
-			"displayName": "Windows x86 Debug",
+			"displayName": "Windows Build x86 Debug",
 			"description": "debug build type",
 			"configurePreset": "windows-x86-debug",
 			"configuration": "Debug"
@@ -369,7 +369,7 @@
 		{
 			"name": "windows-x86-release",
 			"jobs": 10,
-			"displayName": "Windows x86 Release",
+			"displayName": "Windows Build x86 Release",
 			"description": "release build type",
 			"configurePreset": "windows-x86-release",
 			"configuration": "Release"
@@ -382,7 +382,7 @@
 		{
 			"name": "windows-clang-debug",
 			"jobs": 10,
-			"displayName": "Windows Clang Debug",
+			"displayName": "Windows Build Clang Debug",
 			"description": "debug build type",
 			"configurePreset": "windows-clang-debug",
 			"configuration": "Debug"
@@ -400,7 +400,7 @@
 		{
 			"name": "windows-clang-release",
 			"jobs": 10,
-			"displayName": "Windows Clang Release",
+			"displayName": "Windows Build Clang Release",
 			"description": "release build type",
 			"configurePreset": "windows-clang-release",
 			"configuration": "Release"
@@ -413,7 +413,7 @@
 		{
 			"name": "mac-default-debug",
 			"jobs": 10,
-			"displayName": "Mac Debug",
+			"displayName": "Mac Build Debug",
 			"description": "debug build type",
 			"configurePreset": "mac-default-debug",
 			"configuration": "Debug"
@@ -431,7 +431,7 @@
 		{
 			"name": "mac-default-release",
 			"jobs": 10,
-			"displayName": "Mac Release",
+			"displayName": "Mac Build Release",
 			"description": "release build type",
 			"configurePreset": "mac-default-release",
 			"configuration": "Release"
@@ -444,67 +444,67 @@
 	],
 	"testPresets": [
 		{
-			"name": "linux-test-debug",
+			"name": "linux-default-debug",
 			"displayName": "Linux Test Debug",
 			"description": "Tests the debug build type",
 			"configurePreset": "linux-default-debug"
 		},
 		{
-			"name": "linux-test-release",
+			"name": "linux-default-release",
 			"displayName": "Linux Test Release",
 			"description": "Tests the release build type",
 			"configurePreset": "linux-default-release"
 		},
 		{
-			"name": "windows-test-debug",
+			"name": "windows-default-debug",
 			"displayName": "Windows Test Debug",
 			"description": "Tests the debug build type",
 			"configurePreset": "windows-default-debug",
 			"configuration": "Debug"
 		},
 		{
-			"name": "windows-test-release",
+			"name": "windows-default-release",
 			"displayName": "Windows Test Release",
 			"description": "Tests the release build type",
 			"configurePreset": "windows-default-release",
 			"configuration": "Release"
 		},
 		{
-			"name": "windows-x86-test-debug",
-			"displayName": "Windows x86 Test Debug",
+			"name": "windows-x86-debug",
+			"displayName": "Windows Test x86 Debug",
 			"description": "Tests the debug build type",
 			"configurePreset": "windows-x86-debug",
 			"configuration": "Debug"
 		},
 		{
-			"name": "windows-x86-test-release",
-			"displayName": "Windows x86 Test Release",
+			"name": "windows-x86-release",
+			"displayName": "Windows Test x86 Release",
 			"description": "Tests the release build type",
 			"configurePreset": "windows-x86-release",
 			"configuration": "Release"
 		},
 		{
-			"name": "windows-clang-test-debug",
-			"displayName": "Windows Clang Test Debug",
+			"name": "windows-clang-debug",
+			"displayName": "Windows Test Clang Debug",
 			"description": "Tests the debug build type",
 			"configurePreset": "windows-clang-debug",
 			"configuration": "Debug"
 		},
 		{
-			"name": "windows-clang-test-release",
-			"displayName": "Windows Clang Test Release",
+			"name": "windows-clang-release",
+			"displayName": "Windows Test Clang Release",
 			"description": "Tests the release build type",
 			"configurePreset": "windows-clang-release",
 			"configuration": "Release"
 		},
 		{
-			"name": "mac-test-debug",
+			"name": "mac-default-debug",
 			"displayName": "Mac Test Debug",
 			"description": "Tests the debug build type",
 			"configurePreset": "mac-default-debug"
 		},
 		{
-			"name": "mac-test-release",
+			"name": "mac-default-release",
 			"displayName": "Mac Test Release",
 			"description": "Tests the release build type",
 			"configurePreset": "mac-default-release"
@@ -541,7 +541,7 @@
 		{
 			"name": "windows-default-nsis",
 			"inherits": "windows-nsis",
-			"displayName": "Windows Default NSIS",
+			"displayName": "Windows NSIS",
 			"description": "windows nsis packaging",
 			"configurePreset": "windows-default-release"
 		},
@@ -588,7 +588,7 @@
 				},
 				{
 					"type": "test",
-					"name": "linux-test-debug"
+					"name": "linux-default-debug"
 				},
 				{
 					"type": "build",
@@ -618,7 +618,7 @@
 				},
 				{
 					"type": "test",
-					"name": "linux-test-release"
+					"name": "linux-default-release"
 				},
 				{
 					"type": "build",
@@ -644,7 +644,7 @@
 				},
 				{
 					"type": "test",
-					"name": "windows-test-debug"
+					"name": "windows-default-debug"
 				},
 				{
 					"type": "build",
@@ -666,7 +666,7 @@
 				},
 				{
 					"type": "test",
-					"name": "windows-test-release"
+					"name": "windows-default-release"
 				},
 				{
 					"type": "build",
@@ -692,9 +692,9 @@
 				},
 				{
 					"type": "test",
-					"name": "windows-x86-test-debug"
+					"name": "windows-x86-debug"
 				},
-				{
+					{
 					"type": "build",
 					"name": "windows-x86-debug-doxygen"
 				}
@@ -714,7 +714,7 @@
 				},
 				{
 					"type": "test",
-					"name": "windows-x86-test-release"
+					"name": "windows-x86-release"
 				},
 				{
 					"type": "build",
@@ -740,7 +740,7 @@
 				},
 				{
 					"type": "test",
-					"name": "windows-clang-test-debug"
+					"name": "windows-clang-debug"
 				},
 				{
 					"type": "build",
@@ -766,7 +766,7 @@
 				},
 				{
 					"type": "test",
-					"name": "windows-clang-test-release"
+					"name": "windows-clang-release"
 				},
 				{
 					"type": "build",
@@ -792,7 +792,7 @@
 				},
 				{
 					"type": "test",
-					"name": "mac-test-debug"
+					"name": "mac-default-debug"
 				},
 				{
 					"type": "build",
@@ -818,7 +818,7 @@
 				},
 				{
 					"type": "test",
-					"name": "mac-test-release"
+					"name": "mac-default-release"
 				},
 				{
 					"type": "build",

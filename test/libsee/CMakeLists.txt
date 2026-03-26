@@ -3,10 +3,9 @@ add_executable(google_test_libsee
 )
 
 target_link_libraries(google_test_libsee
-	PRIVATE libsee_static
-	PRIVATE precompiled
+	PRIVATE libsee_obj
 )
 
 Format(google_test_libsee .)
 AddGTests(google_test_libsee)
-EnableCoverage(libsee_obj)
+EnableCoverage(libsee_obj libsee_interface)

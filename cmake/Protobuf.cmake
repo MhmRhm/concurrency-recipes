@@ -1,29 +1,23 @@
 find_package(protobuf CONFIG REQUIRED)
 
-function(AddProtobuf target)
-	cmake_parse_arguments(ARG "" "" "PROTOS" ${ARGN})
+function(AddProtoLibrary TARGET_NAME)
+	add_library(${TARGET_NAME} STATIC ${ARGN})
 
-	set(PROTO_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/${target}_pb")
+	target_link_libraries(${TARGET_NAME}
+		PUBLIC protobuf::libprotobuf
+	)
+
+	set(PROTO_INC_DIR "${CMAKE_CURRENT_BINARY_DIR}/include")
+	set(PROTO_OUT_DIR "${PROTO_INC_DIR}/${TARGET_NAME}")
 	file(MAKE_DIRECTORY "${PROTO_OUT_DIR}")
 
-	# Create a library target for generated code
-	set(PROTO_LIB "${target}_proto")
-	add_library(${PROTO_LIB} STATIC ${ARG_PROTOS})
+	target_include_directories(${TARGET_NAME}
+		PUBLIC "$<BUILD_INTERFACE:${PROTO_INC_DIR}>"
+		PUBLIC "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+	)
 
-	# Generate protobuf sources
 	protobuf_generate(
-		TARGET ${PROTO_LIB}
+		TARGET ${TARGET_NAME}
 		PROTOC_OUT_DIR "${PROTO_OUT_DIR}"
 	)
-
-	# Include generated headers and link protobuf runtime
-	target_include_directories(${PROTO_LIB} PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
-	target_link_libraries(${PROTO_LIB}
-		PUBLIC protobuf::libprotoc
-		PUBLIC protobuf::libprotobuf
-		PUBLIC protobuf::libprotobuf-lite
-	)
-
-	# Link the main target against the proto lib
-	target_link_libraries(${target} PRIVATE ${PROTO_LIB})
 endfunction()

@@ -3,13 +3,9 @@ add_executable(boost_test_see_app
 )
 
 target_link_libraries(boost_test_see_app
-	PRIVATE precompiled
-	PRIVATE see_app_static
+	PRIVATE see_app_obj
 )
-
-# All tests appear as one
-add_test(NAME BoostTest COMMAND boost_test_see_app)
 
 Format(boost_test_see_app .)
 AddBoostTests(boost_test_see_app)
-EnableCoverage(see_app_static)
+EnableCoverage(see_app_obj see_app_interface)

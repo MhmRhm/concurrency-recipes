@@ -1,18 +1,18 @@
-function(EnableCoverage target)
+function(EnableCoverage target_obj target_interface)
 	if(CMAKE_BUILD_TYPE STREQUAL Debug)
 		if(APPLE)
-			target_compile_options(${target}
-			PRIVATE -fprofile-instr-generate -fcoverage-mapping -fno-inline)
-			target_link_options(${target}
-			PUBLIC -fprofile-instr-generate -fcoverage-mapping)
-		elseif(UNIX)
-			target_compile_options(${target} PRIVATE --coverage -fno-inline)
-			target_link_options(${target} PUBLIC --coverage)
-		elseif(WIN_CLANG)
-			target_compile_options(${target}
+			target_compile_options(${target_obj}
 				PRIVATE -fprofile-instr-generate -fcoverage-mapping -fno-inline)
-			target_link_options(${target}
-				PUBLIC -fprofile-instr-generate -fcoverage-mapping)
+			target_link_options(${target_interface}
+				INTERFACE -fprofile-instr-generate -fcoverage-mapping)
+		elseif(UNIX)
+			target_compile_options(${target_obj} PRIVATE --coverage -fno-inline)
+			target_link_options(${target_interface} INTERFACE --coverage)
+		elseif(WIN_CLANG)
+			target_compile_options(${target_obj}
+				PRIVATE -fprofile-instr-generate -fcoverage-mapping -fno-inline)
+			target_link_options(${target_interface}
+				INTERFACE -fprofile-instr-generate -fcoverage-mapping)
 		endif()
 	endif()
 endfunction()
@@ -21,7 +21,7 @@ function(CleanCoverage target)
 	add_custom_command(TARGET ${target} PRE_BUILD
 	COMMAND "$<$<PLATFORM_ID:APPLE>:find ${CMAKE_BINARY_DIR} -type f -name '*.profraw' -exec rm {} +>"
 			"$<$<PLATFORM_ID:UNIX>:find ${CMAKE_BINARY_DIR} -type f -name '*.gcda' -exec rm {} +>"
-			"<$<PLATFORM_ID:WIN32>:(ls -Path ${CMAKE_BINARY_DIR} -Filter *.profraw -Recurse).FullName | ForEach-Object -Process {del $_}>"
+			"$<$<PLATFORM_ID:WIN32>:(ls -Path ${CMAKE_BINARY_DIR} -Filter *.profraw -Recurse).FullName | ForEach-Object -Process {del $_}>"
 	)
 endfunction()
 
@@ -55,8 +55,13 @@ function(AddCoverage target)
 			COMMAND ${LCOV_PATH} -d . --zerocounters
 			COMMAND $<TARGET_FILE:${target}>
 			COMMAND ${LCOV_PATH} -d . --capture -o coverage.info
-			COMMAND ${LCOV_PATH} -r coverage.info '/usr/include/*'
-								 -o filtered.info --ignore-errors unused
+			COMMAND ${LCOV_PATH} -r coverage.info
+									"/usr/include/*"
+									"*/vcpkg_installed/*"
+									"*/_deps/*"
+									-o filtered.info
+									--ignore-errors unused,unused
+									--ignore-errors inconsistent,inconsistent
 			COMMAND ${GENHTML_PATH} -o coverage-${target}
 									filtered.info --legend
 			COMMAND rm -rf coverage.info filtered.info

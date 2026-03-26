@@ -2,9 +2,7 @@
     "dependencies": [
         "pkgconf",
         "boost",
-        "protobuf",
         "benchmark",
-        "gtest",
-        "ftxui"
+        "gtest"
     ]
 }

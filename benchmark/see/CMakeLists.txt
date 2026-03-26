@@ -3,7 +3,6 @@ add_executable(google_bench_see_app
 )
 
 target_link_libraries(google_bench_see_app
-	PRIVATE precompiled
 	PRIVATE see_app_static
 )
 

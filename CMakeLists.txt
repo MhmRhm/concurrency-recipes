@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30.0)
 
-project(SeeMake VERSION 0.0.0 LANGUAGES CXX)
+project(SeeMake VERSION 0.0.1 LANGUAGES C CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 list(APPEND CMAKE_PREFIX_PATH "${QTDIR}")
@@ -15,6 +15,7 @@ include(Coverage)
 include(Cppcheck)
 include(Doxygen)
 include(Format)
+include(Boost)
 
 add_subdirectory(src bin)
 add_subdirectory(test)
