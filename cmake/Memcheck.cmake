@@ -9,7 +9,7 @@ FetchContent_MakeAvailable(memcheck-cover)
 function(AddMemcheck target)
 	if(UNIX)
 		set(MEMCHECK_PATH ${memcheck-cover_SOURCE_DIR}/bin)
-		set(REPORT_PATH "${CMAKE_BINARY_DIR}/valgrind-${target}")
+		set(REPORT_PATH "${CMAKE_CURRENT_BINARY_DIR}/valgrind-${target}")
 		set(MEMCHECK_SCRIPT [[
 			#!/bin/bash
 			s=0
@@ -25,14 +25,14 @@ function(AddMemcheck target)
 			# Exit with original status
 			exit $s]]
 		)
-		file(WRITE "${CMAKE_BINARY_DIR}/memcheck_${target}.sh" "${MEMCHECK_SCRIPT}")
-		file(CHMOD "${CMAKE_BINARY_DIR}/memcheck_${target}.sh" PERMISSIONS
+		file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/memcheck_${target}.sh" "${MEMCHECK_SCRIPT}")
+		file(CHMOD "${CMAKE_CURRENT_BINARY_DIR}/memcheck_${target}.sh" PERMISSIONS
 			OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE
 		)
 		add_custom_target(memcheck-${target}
-			COMMAND ${CMAKE_BINARY_DIR}/memcheck_${target}.sh
+			COMMAND ${CMAKE_CURRENT_BINARY_DIR}/memcheck_${target}.sh
 				${MEMCHECK_PATH} ${REPORT_PATH} $<TARGET_FILE:${target}>
-			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 		)
 	elseif (WIN_MSVC)
 		target_compile_definitions(${target}

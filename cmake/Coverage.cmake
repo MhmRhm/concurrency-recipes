@@ -19,9 +19,9 @@ endfunction()
 
 function(CleanCoverage target)
 	add_custom_command(TARGET ${target} PRE_BUILD
-	COMMAND "$<$<PLATFORM_ID:APPLE>:find ${CMAKE_BINARY_DIR} -type f -name '*.profraw' -exec rm {} +>"
-			"$<$<PLATFORM_ID:UNIX>:find ${CMAKE_BINARY_DIR} -type f -name '*.gcda' -exec rm {} +>"
-			"$<$<PLATFORM_ID:WIN32>:(ls -Path ${CMAKE_BINARY_DIR} -Filter *.profraw -Recurse).FullName | ForEach-Object -Process {del $_}>"
+	COMMAND "$<$<PLATFORM_ID:APPLE>:find $<TARGET_FILE_DIR:${target}> -type f -name '*.profraw' -exec rm {} +>"
+			"$<$<PLATFORM_ID:UNIX>:find $<TARGET_FILE_DIR:${target}> -type f -name '*.gcda' -exec rm {} +>"
+			"$<$<PLATFORM_ID:WIN32>:(ls -Path $<TARGET_FILE_DIR:${target}> -Filter *.profraw -Recurse).FullName | ForEach-Object -Process {del $_}>"
 	)
 endfunction()
 

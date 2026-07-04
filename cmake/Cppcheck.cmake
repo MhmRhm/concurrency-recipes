@@ -6,7 +6,7 @@ add_custom_target(cppcheck_style
 	COMMAND ${CPPCHECK_PATH}
 	--enable=style
 	--check-level=exhaustive
-	--project=${CMAKE_BINARY_DIR}/compile_commands.json
+	--project=${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json
 	--suppress=preprocessorErrorDirective:*pb.h
 )
 

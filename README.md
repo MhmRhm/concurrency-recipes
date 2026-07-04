@@ -478,6 +478,8 @@ FetchContent_Declare(Libsee
     GIT_TAG main
     GIT_REPOSITORY https://github.com/MhmRhm/SeeMake.git
 )
+set(see_BUILD_TESTS OFF)
+set(see_BUILD_BENCHMARKS OFF)
 FetchContent_MakeAvailable(Libsee)
 
 # or after installation:
@@ -501,8 +503,8 @@ int main() {
 }
 ```
 
-Finally, they can compile the project easily using the `CMakePresets.json` file
-or setup their own presets:
+Finally, they can compile the project easily by copying our `vcpkg.json` and
+`CMakePresets.json` file or setup their own:
 
 ```bash
 cmake --workflow --fresh --preset linux-default-release
