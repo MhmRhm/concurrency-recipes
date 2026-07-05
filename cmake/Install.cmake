@@ -1,10 +1,15 @@
 include(CMakePackageConfigHelpers)
 
 install(
-	TARGETS precompiled libsee_interface libsee_static libsee_shared
+	TARGETS
+		precompiled
+		libsee_interface
+		libsee_static
+		libsee_shared
 	EXPORT libsee-targets
 )
-install(DIRECTORY src/libsee/include/libsee
+install(
+	DIRECTORY src/libsee/include/libsee
 	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 	FILES_MATCHING PATTERN "*.h"
 )
