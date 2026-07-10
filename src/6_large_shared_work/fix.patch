@@ -1,0 +1,42 @@
+diff --git a/src/6_large_shared_work/main.cpp b/src/6_large_shared_work/main.cpp
+index 0ea30a6..37dd592 100644
+--- a/src/6_large_shared_work/main.cpp
++++ b/src/6_large_shared_work/main.cpp
+@@ -3,16 +3,18 @@
+ using namespace std;
+ using namespace chrono;
+ 
+-void produce(stop_token stopToken, queue<int> &taskList) {
++void produce(stop_token stopToken, queue<int> &taskList, mutex &taskMutex) {
+   while (!stopToken.stop_requested()) {
+-    if (taskList.size() < 100) {
++    lock_guard guard{taskMutex};
++    if (taskList.size() < 1'000'000) {
+       taskList.push(0);
+     }
+   }
+ }
+ 
+-void consume(stop_token stopToken, queue<int> &taskList) {
++void consume(stop_token stopToken, queue<int> &taskList, mutex &taskMutex) {
+   while (!stopToken.stop_requested()) {
++    lock_guard guard{taskMutex};
+     if (taskList.size()) {
+       taskList.pop();
+     }
+@@ -21,11 +23,12 @@ void consume(stop_token stopToken, queue<int> &taskList) {
+ 
+ int main() {
+   queue<int> taskList{};
++  mutex taskMutex{};
+ 
+   {
+-    jthread producer{produce, ref(taskList)};
+-    jthread consumer{consume, ref(taskList)};
+-    this_thread::sleep_for(2s);
++    jthread producer{produce, ref(taskList), ref(taskMutex)};
++    jthread consumer{consume, ref(taskList), ref(taskMutex)};
++    this_thread::sleep_for(5s);
+   }
+ 
+   cout << format("Remaining tasks: {}", taskList.size()) << endl;

@@ -21,7 +21,3 @@ include(Format)
 include(Boost)
 
 add_subdirectory(src bin)
-add_subdirectory(test)
-add_subdirectory(benchmark)
-
-include(Install)

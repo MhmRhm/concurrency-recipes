@@ -1,4 +1,11 @@
 include(GNUInstallDirs)
 
-add_subdirectory(libsee)
-add_subdirectory(see)
+add_subdirectory(libsupport)
+add_subdirectory(1_simple_work)
+add_subdirectory(2_simple_work_in_thread)
+add_subdirectory(3_simple_work_stopable)
+add_subdirectory(4_shared_work)
+add_subdirectory(5_false_shared_work)
+add_subdirectory(6_large_shared_work)
+add_subdirectory(7_latched_work)
+add_subdirectory(8_signaled_work)

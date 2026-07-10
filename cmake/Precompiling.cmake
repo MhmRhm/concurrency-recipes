@@ -15,6 +15,7 @@ target_precompile_headers(precompiled INTERFACE
 	<string_view>
 	<format>
 	<regex>
+	<random>
 
 	<iostream>
 	<syncstream>
@@ -32,7 +33,9 @@ target_precompile_headers(precompiled INTERFACE
 
 	<thread>
 	<mutex>
+	<latch>
 	<semaphore>
+	<condition_variable>
 
 	<cstddef>
 	<cstdint>
