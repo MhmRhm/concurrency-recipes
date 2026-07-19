@@ -1,8 +1,5 @@
 {
     "dependencies": [
-        "pkgconf",
-        "boost",
-        "benchmark",
-        "gtest"
+        "pkgconf"
     ]
 }

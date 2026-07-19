@@ -18,6 +18,5 @@ include(Coverage)
 include(Cppcheck)
 include(Doxygen)
 include(Format)
-include(Boost)
 
 add_subdirectory(src bin)
