@@ -32,6 +32,7 @@ target_precompile_headers(precompiled INTERFACE
 	<unordered_map>
 
 	<thread>
+	<future>
 	<mutex>
 	<latch>
 	<semaphore>
